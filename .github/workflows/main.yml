@@ -1,0 +1,30 @@
+name: lambda-deployment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy_source:
+    name: Build And Deploy Lambda
+    strategy:
+      matrix:
+        node-version: [12.x]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1.4.2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies, Build application and Zip dist folder contents
+        run: npm install && zip -qq -r bundle.zip .
+      - name: Deploying Zip To Lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: lambda-starter
+          zip_file: bundle.zip

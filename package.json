@@ -1,0 +1,17 @@
+{
+    "name": "lambda-starter",
+    "version": "0.0.1",
+    "description": "Lambda Starter",
+    "authors": [
+        "Mete ALANLI <metealanli@gmail.com>"
+    ],
+    "config": {
+        "progress": "true"
+    },
+    "dependencies": {
+        "https": "^1.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^3.1.1"
+    },
+}

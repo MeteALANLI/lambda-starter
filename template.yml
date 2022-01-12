@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2018-09-20'
+Description: 'Lambda Starter'
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Handler: index.handler
+    MemorySize: 128
+    Timeout: 20
+    CodeUri: .
+    Environment:
+      Variables:
+        ENVIRONMENT: local
+Resources:
+  LambdaStarter:
+    Type: AWS::Serverless::Function
+    Properties:
+      Events:
+        Create:
+          Type: Api
+          Properties:
+            Path: /
+            Method: post
